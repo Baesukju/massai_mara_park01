@@ -40,8 +40,8 @@ jobs:
         
         - name: run automated test2
           run: |
-            curl http://localhost/images || exit 1
+            curl http://localhost:8080/images || exit 1
 
         - name: run automated test3
           run: |
-            curl http://localhost/animal || exit 1
+            curl http://localhost:8080/animal || exit 1
