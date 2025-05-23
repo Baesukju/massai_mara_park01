@@ -4,7 +4,7 @@ on:
   workflow_dispatch
 
 env:
-  EC2_HOSTNAME: 13.125.218.128
+  EC2_HOSTNAME: 3.36.115.112
   EC2_USERNAME: ubuntu
 
 jobs:
@@ -63,11 +63,7 @@ jobs:
 
       - name: upload JAR via SCP
         run: |
-          scp -i ~/.ssh/ec2_key \
-          -o "StrictHostKeyChecking=no" \
-          -o "UserKnownHostsFile=/dev/null" \
-          *SNAPSHOT.jar  \
-          ${{env.EC2_USERNAME}}@${{env.EC2_HOSTNAME}}:~/
+          scp -i ~/.ssh/ec2_key -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" *SNAPSHOT.jar ${{env.EC2_USERNAME}}@${{env.EC2_HOSTNAME}}:~/
           
       - name: cleanup private key
         if: always()
