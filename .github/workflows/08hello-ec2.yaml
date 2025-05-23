@@ -9,6 +9,11 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - name: setup SSH Directory
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
       - name: make private key
         run: |
           echo "${{secrets.EC2_PRIVATEKEY}}" > ~/.ssh/ec2_key
@@ -16,12 +21,12 @@ jobs:
 
       - name: test SSH connect to EC2
         env:
-          HOSTNAME: 3.36.115.112
-          USERNAME: ubuntu
+          HOSTNAME: "3.36.115.112"
+          USERNAME: "ubuntu"
         run: |
           echo "SSH 연결 테스트 시작"
           
-          ssh -o StrictHostKeyChecking=no -o "UserKnownHostsFile=/dev/null" -i ~/.ssh/ec2_key ${USERNAME}@${HOSTNAME} '
+          ssh -o StrictHostKeyChecking=no -o "UserKnownHostsFile=/dev/null" -i ~/.ssh/ec2_key ${{env.USERNAME}}@${{env.HOSTNAME}} '
           
           echo "현재 사용자: $(whoami)"
           echo "호스트명: $(hostname)"
