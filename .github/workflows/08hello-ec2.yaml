@@ -39,7 +39,7 @@ jobs:
       - name: upload README.md via SCP
         run: |
           echo "Hello, EC2 SCP" > README.md
-          scp -i ~/.ssh.ec2_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null README.md ${{ env.USERNAME }}@${{ env.HOSTNAME }}:~/
+          scp -i ~/.ssh/ec2_key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null README.md ${{ env.USERNAME }}@${{ env.HOSTNAME }}:~/
 
       - name: cleanup private key
         if: always()
